@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Tâche{% endblock %}
+
+{% block body %}
+    <div class="card bg-dark-subtle border-secondary">
+        <div class="card-header border-secondary">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h3 mb-0">Nouvelle Tâche</h1>
+                <a href="{{ path('app_task_index') }}" class="btn btn-outline-light">
+                    <i class="bi bi-arrow-left me-2"></i>Retour
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            {{ include('task/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

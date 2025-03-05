@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Tâches{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-0">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0">Liste des Tâches</h1>
+            <a href="{{ path('app_task_new') }}" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-2"></i>Nouvelle Tâche
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4 rounded">
+            <div class="card-body p-0">
+                <div class="btn-group w-100">
+                    <a href="{{ path('app_task_index') }}" class="btn btn-outline-primary rounded-0 {{ current_filter == 'all' ? 'active' }}">
+                        <i class="bi bi-list me-2"></i>Toutes
+                    </a>
+                    <a href="{{ path('app_task_index', {filter: 'pending'}) }}" class="btn btn-outline-primary rounded-0 {{ current_filter == 'pending' ? 'active' }}">
+                        <i class="bi bi-hourglass-split me-2"></i>En attente
+                    </a>
+                    <a href="{{ path('app_task_index', {filter: 'completed'}) }}" class="btn btn-outline-primary rounded-0 {{ current_filter == 'completed' ? 'active' }}">
+                        <i class="bi bi-check2-all me-2"></i>Terminées
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for task in tasks %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 border border-1 border-secondary-subtle shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="card-title fw-bold text-truncate mb-0" style="max-width: 70%;">{{ task.title }}</h5>
+                                <span class="badge rounded-pill {{ task.status ? 'bg-success-subtle border border-success text-success' : 'bg-warning-subtle text-warning border border-warning' }}">
+                                    {{ task.status ? 'Terminée' : 'En attente' }}
+                                </span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <p class="card-text text-secondary mb-0" style="min-height: 3rem;">{{ task.description }}</p>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ task.createdAt ? task.createdAt|date('d/m/Y H:i') : '' }}</small>
+                                
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <form method="post" action="{{ path('app_task_toggle', {'id': task.id}) }}">
+                                                <button class="dropdown-item">
+                                                    <i class="bi bi-check me-2"></i>Terminer
+                                                </button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('app_task_edit', {'id': task.id}) }}">
+                                                <i class="bi bi-pencil me-2"></i>Modifier
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <form method="post" action="{{ path('app_task_delete', {'id': task.id}) }}">
+                                                <button type="submit" class="dropdown-item text-danger">
+                                                    <i class="bi bi-trash me-2"></i>Supprimer
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center py-5">
+                    <i class="bi bi-inbox display-1 text-secondary mb-3 d-block"></i>
+                    <p class="text-secondary mb-0">Aucune tâche trouvée</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
