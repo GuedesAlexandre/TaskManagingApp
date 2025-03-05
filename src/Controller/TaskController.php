@@ -42,7 +42,7 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Task created successfully');
+            $this->addFlash('success', 'Tâche créée avec succès');
             return $this->redirectToRoute('app_task_index');
         }
 
@@ -57,7 +57,7 @@ class TaskController extends AbstractController
     {
         $task->setStatus(!$task->getStatus());
         $entityManager->flush();
-        $this->addFlash('success', 'Task status updated successfully');
+        $this->addFlash('success', 'Tâche mis à terminer avec succès');
         return $this->redirectToRoute('app_task_index');
     }
 
