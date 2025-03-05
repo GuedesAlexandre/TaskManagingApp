@@ -3,6 +3,7 @@
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "propriétaire": "Alexandre Guedes",
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
