@@ -67,7 +67,7 @@ DELETE /api/tasks/{id}
    ```
 
 ## Technologies
-- Symfony 6
+- Symfony 7
 - Bootstrap 5
 - API REST
 
